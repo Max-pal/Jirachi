@@ -25,7 +25,7 @@ public class ValidLogInTest {
     public void setUp() {
         driver = new FirefoxDriver();
         baseURL = "https://jira.codecool.codecanvas.hu/";
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get(baseURL);
         usernameField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
@@ -39,6 +39,7 @@ public class ValidLogInTest {
         passwordField.sendKeys(PASSWORD);
         loginButton.click();
     }
+
 
     @AfterEach
     public void tearDown() {
