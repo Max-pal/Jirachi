@@ -1,4 +1,4 @@
-package jira.feature;
+package jira.feature.login;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
