@@ -24,22 +24,33 @@ public class ValidLogInTest {
     @BeforeEach
     public void setUp() {
         driver = new FirefoxDriver();
-        baseURL = "https://jira.codecool.codecanvas.hu/";
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
+    }
+
+    @Test
+    public void happyPathMainPage() {
+        baseURL = "https://jira.codecool.codecanvas.hu/";
         driver.get(baseURL);
         usernameField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
         passwordField = driver.findElement(By.xpath("//*[@id=\"login-form-password\"]"));
         loginButton = driver.findElement(By.xpath("//*[@id=\"login\"]"));
-    }
-
-    @Test
-    public void happyPath() {
         usernameField.sendKeys(USERNAME);
         passwordField.sendKeys(PASSWORD);
         loginButton.click();
     }
 
+    @Test
+    public void happyPathLoginPage() {
+        baseURL = "https://jira.codecool.codecanvas.hu/login.jsp";
+        driver.get(baseURL);
+        usernameField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
+        passwordField = driver.findElement(By.xpath("//*[@id=\"login-form-password\"]"));
+        loginButton = driver.findElement(By.xpath("//*[@id=\"login-form-submit\"]"));
+        usernameField.sendKeys(USERNAME);
+        passwordField.sendKeys(PASSWORD);
+        loginButton.click();
+    }
 
     @AfterEach
     public void tearDown() {
