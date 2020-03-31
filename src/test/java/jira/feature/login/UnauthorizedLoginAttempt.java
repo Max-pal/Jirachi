@@ -1,6 +1,5 @@
 package jira.feature.login;
 
-
         import org.junit.jupiter.api.*;
         import org.openqa.selenium.By;
         import org.openqa.selenium.WebDriver;
@@ -56,4 +55,8 @@ public class UnauthorizedLoginAttempt {
         Assertions.assertEquals(1, driver.findElements(By.xpath("//*[@id=\"captcha\"]")).size());
     }
 
+    @AfterAll
+    static void tearDown() {
+        driver.quit();
+    }
 }
