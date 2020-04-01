@@ -1,6 +1,9 @@
 package jira.feature.login;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ValidLogInTest {
+public class EmptyCredentialsLogInTest {
     WebDriver driver;
     String baseURL;
     String USERNAME = System.getenv("USERNAME");
@@ -20,45 +23,37 @@ public class ValidLogInTest {
     WebElement usernameField;
     WebElement passwordField;
     WebElement loginButton;
+    WebDriverWait wait;
 
     @BeforeEach
     public void setUp() {
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, 10);
     }
 
     @Test
-    public void happyPathMainPage() {
+    public void LogInMainPage() {
         baseURL = "https://jira.codecool.codecanvas.hu/";
         driver.get(baseURL);
-        usernameField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
-        passwordField = driver.findElement(By.xpath("//*[@id=\"login-form-password\"]"));
         loginButton = driver.findElement(By.xpath("//*[@id=\"login\"]"));
-        usernameField.sendKeys(USERNAME);
-        passwordField.sendKeys(PASSWORD);
         loginButton.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"usernameerror\"]")));
+
     }
 
     @Test
-    public void happyPathLoginPage() {
+    public void LogInLoginPage() {
         baseURL = "https://jira.codecool.codecanvas.hu/login.jsp";
         driver.get(baseURL);
-        usernameField = driver.findElement(By.xpath("//*[@id=\"login-form-username\"]"));
-        passwordField = driver.findElement(By.xpath("//*[@id=\"login-form-password\"]"));
         loginButton = driver.findElement(By.xpath("//*[@id=\"login-form-submit\"]"));
-        usernameField.sendKeys(USERNAME);
-        passwordField.sendKeys(PASSWORD);
         loginButton.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"login-form\"]/div[1]/div[1]")));
     }
 
     @AfterEach
     public void tearDown() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"header-details-user-fullname\"]/span/span/img")));
-        WebElement profilepic = driver.findElement(By.xpath("//*[@id=\"header-details-user-fullname\"]/span/span/img"));
-        String check = profilepic.getAttribute("alt");
-        assertTrue(check.toLowerCase().contains(USERNAME));
         driver.close();
     }
 }
