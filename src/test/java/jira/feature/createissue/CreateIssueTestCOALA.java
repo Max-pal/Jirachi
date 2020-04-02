@@ -18,7 +18,8 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GeneralCreateIssueTest {
+
+public class CreateIssueTestCOALA {
     static WebDriver driver = new FirefoxDriver();
     static String baseURL = "https://jira.codecool.codecanvas.hu/";
     static String USERNAME = System.getenv("USERNAME");
@@ -26,7 +27,7 @@ public class GeneralCreateIssueTest {
     static WebDriverWait wait = new WebDriverWait(driver, 10);
 
     @BeforeAll
-    public static void setUp(){
+    public static void setUp() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get(baseURL);
@@ -42,24 +43,26 @@ public class GeneralCreateIssueTest {
 //        Check if correct user is logged in
         assertTrue(check.toLowerCase().contains(USERNAME));
     }
-    @DisplayName("Verify Create Issue functionalities\n")
+
     @Test
+    @DisplayName("\uD83D\uDC28")
     public void createIssueTest() {
         WebElement createIssueButton = driver.findElement(By.xpath("//*[@id=\"create_link\"]"));
         createIssueButton.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"create-issue-dialog\"]")));
-        driver.findElement(By.xpath("//*[@id=\"project-field\"]")).sendKeys("Main Testing Project (MTP)");
+        driver.findElement(By.xpath("//*[@id=\"project-field\"]")).sendKeys("COALA Project (COALA)");
 //        Select Task
-        driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).click();
-        ArrayList<String> expectedIssueTypes = new ArrayList<>(Arrays.asList("Improvement", "New Feature", "Bug", "Epic"));
+        driver.findElement(By.xpath("//*[@id=\"issuetype-single-select\"]/span")).click();
+        ArrayList<String> expectedIssueTypes = new ArrayList<>(Arrays.asList("Story", "Task", "Bug"));
         ArrayList<String> foundIssueTypes = new ArrayList<>();
         List<WebElement> issueTypes = driver.findElements(By.xpath("//*[@id=\"issuetype-suggestions\"]/div/ul/li/a"));
-        for(WebElement issueType : issueTypes) {
+        for (WebElement issueType : issueTypes) {
             String info = issueType.getText();
-            foundIssueTypes.add(info);
-            System.out.println(info);
+            System.out.println(issueType);
         }
+        System.out.println(foundIssueTypes);
 //        expectedIssueTypes.removeAll(foundIssueTypes);
+
 //        Assertions.assertEquals(0, expectedIssueTypes.size());
 
         driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).click();
@@ -78,22 +81,6 @@ public class GeneralCreateIssueTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"summary-val\"]")));
         assertTrue(driver.findElement(By.xpath("//*[@id=\"summary-val\"]")).getText().contains("Test from selenium"));
     }
-    @DisplayName("COALA create issue test \uD83D\uDC28")
-    @Test
-    public void createIssueTestCoala(){
-        System.out.println("COALA");
-    }
-
-    @DisplayName("TOUCAN create issue test \uD83D\uDC26")
-    @Test
-    public void createIssueTestToucan(){
-        System.out.println("TOUCAN");
-    }
-
-
-    @DisplayName("JETI create issue test \uD83D\uDC12")
-    @Test
-    public void createIssueTestJeti(){
-        System.out.println("JETI");
-    }
 }
+
+
