@@ -9,6 +9,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.nio.file.WatchEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -45,8 +49,20 @@ public class GeneralCreateIssueTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"create-issue-dialog\"]")));
         //        driver.findElement(By.xpath("//*[@id=\"project-field\"]")).sendKeys("Main Testing Project (MTP)");
 //        Select Task
+        driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).click();
+        ArrayList<String> expectedIssueTypes = new ArrayList<>(Arrays.asList("Improvement", "New Feature", "Bug", "Epic"));
+        ArrayList<String> foundIssueTypes = new ArrayList<>();
+        List<WebElement> issueTypes = driver.findElements(By.xpath("//*[@id=\"issuetype-suggestions\"]/div/ul/li/a"));
+        for(WebElement issueType : issueTypes) {
+            String info = issueType.getText();
+            foundIssueTypes.add(info);
+            System.out.println(info);
+        }
+        expectedIssueTypes.removeAll(foundIssueTypes);
+        driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).click();
         driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).clear();
         driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).sendKeys("Task");
+        //*[contains(@class,'ajs-layer-placeholder') and contains(@class,'icon')]
 //        Enter "Test for selenium" in summary
         driver.findElement(By.id("summary")).click();
         driver.findElement(By.id("summary")).sendKeys("Test from selenium");
