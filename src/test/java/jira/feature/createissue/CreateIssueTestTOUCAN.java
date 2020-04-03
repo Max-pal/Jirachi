@@ -44,7 +44,7 @@ public class CreateIssueTestTOUCAN {
     }
 
     @Test
-    @DisplayName("\uD83D\uDC28")
+    @DisplayName("TOUCAN create issue test \uD83D\uDC26")
     public void createIssueTest() {
         WebElement createIssueButton = driver.findElement(By.xpath("//*[@id=\"create_link\"]"));
         createIssueButton.click();

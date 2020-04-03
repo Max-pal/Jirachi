@@ -44,7 +44,7 @@ public class CreateIssueTestJETI {
     }
 
     @Test
-    @DisplayName("\uD83D\uDC28")
+    @DisplayName("JETI create issue test \uD83D\uDC12")
     public void createIssueTest() {
         WebElement createIssueButton = driver.findElement(By.xpath("//*[@id=\"create_link\"]"));
         createIssueButton.click();

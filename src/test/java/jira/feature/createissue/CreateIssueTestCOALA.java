@@ -45,7 +45,7 @@ public class CreateIssueTestCOALA {
     }
 
     @Test
-    @DisplayName("\uD83D\uDC28")
+    @DisplayName("COALA create issue test \uD83D\uDC28")
     public void createIssueTest() {
         WebElement createIssueButton = driver.findElement(By.xpath("//*[@id=\"create_link\"]"));
         createIssueButton.click();

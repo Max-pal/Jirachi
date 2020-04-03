@@ -78,22 +78,4 @@ public class GeneralCreateIssueTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"summary-val\"]")));
         assertTrue(driver.findElement(By.xpath("//*[@id=\"summary-val\"]")).getText().contains("Test from selenium"));
     }
-    @DisplayName("COALA create issue test \uD83D\uDC28")
-    @Test
-    public void createIssueTestCoala(){
-        System.out.println("COALA");
-    }
-
-    @DisplayName("TOUCAN create issue test \uD83D\uDC26")
-    @Test
-    public void createIssueTestToucan(){
-        System.out.println("TOUCAN");
-    }
-
-
-    @DisplayName("JETI create issue test \uD83D\uDC12")
-    @Test
-    public void createIssueTestJeti(){
-        System.out.println("JETI");
-    }
 }
